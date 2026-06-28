@@ -6,5 +6,11 @@ softdepend:
   - PlaceholderAPI
   - Vault
 permissions:
+  heartattacklibs.admin:
+    default: op
+  heartattacklibs.demo:
+    default: op
   heartattacklibs.reload:
     default: op
+  heartattacklibs.settings:
+    default: true

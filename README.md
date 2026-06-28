@@ -891,9 +891,57 @@ String text = libs.utilityFramework().placeholders()
 
 ## Built-In HeartAttackLibs Commands
 
-The public library build does not register demo or admin commands by default. It is intended to stay quiet on production servers and expose services for other plugins.
+HeartAttackLibs registers a small built-in command set for server owners and developers.
 
-If you need your own reload, debug, or diagnostic commands, register them from your plugin through the command framework.
+Admin command:
+
+- `/heartattacklibs help` shows command help
+- `/heartattacklibs list` lists plugins depending on HeartAttackLibs
+- `/heartattacklibs demo <...>` forwards to the demo command
+- `/heartattacklibs debug <status|toggle|on|off>` controls framework debug mode
+- `/heartattacklibs reload` reloads configs, messages, dependencies, modules, and menus
+- `/heartattacklibs modules` shows module states
+- `/heartattacklibs deps` shows dependency provider states
+
+Admin command aliases:
+
+- `/halibs`
+- `/heartlibs`
+
+Standalone reload command:
+
+- `/heartattacklibsreload` reloads configs, messages, dependencies, modules, and menus
+
+Reload command aliases:
+
+- `/halreload`
+- `/heartlibsreload`
+
+Demo command:
+
+- `/heartattacklibsdemo gui` opens the demo GUI
+- `/heartattacklibsdemo template` opens the demo GUI with a context placeholder
+- `/heartattacklibsdemo item` gives a demo item built with `ItemBuilder`
+- `/heartattacklibsdemo reload` reloads the framework
+- `/heartattacklibsdemo debug` toggles debug mode
+- `/heartattacklibsdemo hologram` spawns a temporary demo hologram
+- `/heartattacklibsdemo module` lists module states
+- `/heartattacklibsdemo deps` lists dependency states
+- `/heartattacklibsdemo balance` shows the player's Vault economy balance when available
+
+Settings command:
+
+- `/settings` opens the personal message/effect settings GUI
+- `/settings toggle <plugin> <category> <location>` toggles a specific scoped setting
+
+Permissions:
+
+- `heartattacklibs.admin` defaults to `op`
+- `heartattacklibs.demo` defaults to `op`
+- `heartattacklibs.reload` defaults to `op`
+- `heartattacklibs.settings` defaults to `true`
+
+The command manager registers these dynamically at runtime, so a `commands:` block is not required in `plugin.yml`.
 
 ## Public Repository Hygiene
 
@@ -905,5 +953,4 @@ The repository is configured for public use:
 - Private jar folders are ignored
 - CI builds run on pushes and pull requests
 - Stable releases are published from `v*` tags
-
 

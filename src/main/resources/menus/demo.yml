@@ -1,0 +1,66 @@
+menu:
+  id: demo
+  title: "<dark_gray>HeartAttackLibs GUI <gray>for <gold><player_name>"
+  size: 27
+  settings:
+    cancel-clicks: true
+    cancel-drag: true
+    allow-player-inventory-click: false
+  open-requirements:
+    - type: permission
+      permission: heartattacklibs.demo
+      deny-message: "<red>You need <white>heartattacklibs.demo</white> to open this menu."
+  placeholders:
+    source: command
+  items:
+    filler:
+      slots: [0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 15, 17, 18, 19, 20, 21, 23, 24, 25, 26]
+      material: GRAY_STAINED_GLASS_PANE
+      name: "<gray>"
+    confirm:
+      slot: 13
+      material: EMERALD
+      name: "<green><bold>Confirm"
+      lore:
+        - "<gray>Runs a bound framework action"
+        - "<gray>Source: <white><source>"
+      left-click-actions:
+        - "[demo_confirm]"
+    cmd_item:
+      slot: 10
+      material: PAPER
+      custom-model-data: 1001
+      name: "<yellow>Custom Model Data"
+      lore:
+        - "<gray>Health: <white><player_health>"
+        - "<gray>Demonstrates CMD + placeholders"
+      click-actions:
+        - "[message] <green>Your health is <white><player_health>"
+    skull_url:
+      slot: 12
+      material: PLAYER_HEAD
+      texture:
+        type: url
+        value: "http://textures.minecraft.net/texture/ad650a165bbac65443e19d295d24bc433280f97e06b6f693f326780f215c1f5"
+      name: "<gold>URL Skull"
+      lore:
+        - "<gray>Texture mode: <white>url"
+      click-actions:
+        - "[message] <gray>Loaded skull from URL"
+    skull_player:
+      slot: 14
+      material: PLAYER_HEAD
+      texture:
+        type: player
+        value: "<player_name>"
+      name: "<aqua>Player Skull"
+      lore:
+        - "<gray>Texture mode: <white>player"
+      click-actions:
+        - "[message] <gray>Loaded player skull for <white><player_name>"
+    close:
+      slot: 16
+      material: BARRIER
+      name: "<red>Close"
+      click-actions:
+        - "[close]"
