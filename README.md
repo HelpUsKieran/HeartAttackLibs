@@ -628,6 +628,22 @@ libs.hologramFramework().remove(hologram);
 
 Call `libs.hologramFramework().despawnAll()` or `libs.holograms().despawnAll()` from your shutdown path if you manage long-lived holograms yourself.
 
+Owner tagging can prevent duplicate ghost holograms after chunk reloads or lost references:
+
+```java
+NamespacedKey ownerKey = new NamespacedKey(this, "hologram-owner");
+String ownerId = "spawn-info";
+
+Hologram hologram = libs.hologramFramework().create(
+    HologramBuilder.at(location)
+        .owner(ownerKey, ownerId)
+        .lines("<green>Spawn", "<gray>Welcome")
+);
+
+// Optional manual cleanup for matching orphaned TextDisplay/ItemDisplay entities in the chunk.
+int removed = Hologram.purgeOrphans(location, ownerKey, ownerId);
+```
+
 ## Database Framework
 
 Use `createDatabase(plugin)` for plugin-specific persistence. This stores SQLite files under your plugin's data folder instead of HeartAttackLibs' folder.

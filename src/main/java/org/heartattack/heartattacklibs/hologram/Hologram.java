@@ -1,13 +1,17 @@
 package org.heartattack.heartattacklibs.hologram;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Chunk;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.Display;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Transformation;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -30,6 +34,8 @@ public final class Hologram {
     private ItemStack icon;
     private final double iconOffsetY;
     private final double iconScale;
+    private final NamespacedKey ownerKey;
+    private final String ownerId;
     private final List<TextDisplay> spawnedDisplays = new ArrayList<>();
     private ItemDisplay iconDisplay;
 
@@ -44,7 +50,9 @@ public final class Hologram {
             Color backgroundColor,
             ItemStack icon,
             double iconOffsetY,
-            double iconScale
+            double iconScale,
+            NamespacedKey ownerKey,
+            String ownerId
     ) {
         this.baseLocation = baseLocation.clone();
         this.lines = new ArrayList<>(lines);
@@ -57,6 +65,8 @@ public final class Hologram {
         this.icon = icon == null ? null : icon.clone();
         this.iconOffsetY = iconOffsetY;
         this.iconScale = iconScale;
+        this.ownerKey = ownerKey;
+        this.ownerId = ownerId;
     }
 
     public void spawn() {
@@ -65,6 +75,10 @@ public final class Hologram {
         if (world == null) {
             return;
         }
+        // Purge any orphaned entities from a previous owner-tagged hologram at this spot
+        // (e.g. ghosts left behind by a chunk reload or a lost tracking reference) before
+        // spawning fresh ones, so duplicates can never stack on top of each other.
+        purgeOrphans(baseLocation, ownerKey, ownerId);
 
         for (int i = 0; i < lines.size(); i++) {
             Location lineLocation = baseLocation.clone().subtract(0.0, i * lineSpacing, 0.0);
@@ -82,6 +96,7 @@ public final class Hologram {
                 }
                 entity.setGravity(false);
                 entity.setPersistent(false);
+                tagOwner(entity);
             });
             spawnedDisplays.add(display);
         }
@@ -94,8 +109,51 @@ public final class Hologram {
                 entity.setGravity(false);
                 entity.setPersistent(false);
                 entity.setTransformation(iconTransformation());
+                tagOwner(entity);
             });
         }
+    }
+
+    /** Stamps the owner key/id onto a spawned entity so orphans can be located and removed later. */
+    private void tagOwner(Entity entity) {
+        if (ownerKey != null && ownerId != null) {
+            entity.getPersistentDataContainer().set(ownerKey, PersistentDataType.STRING, ownerId);
+        }
+    }
+
+    /**
+     * Removes every {@link TextDisplay} / {@link ItemDisplay} in the chunk at {@code base} whose
+     * persistent data has {@code ownerKey == ownerId}. Used to clear ghost/orphaned hologram
+     * entities that are no longer tracked by any live {@link Hologram} instance.
+     *
+     * @return the number of entities removed (0 if the key/id is null or the chunk is unloaded)
+     */
+    public static int purgeOrphans(Location base, NamespacedKey ownerKey, String ownerId) {
+        if (base == null || ownerKey == null || ownerId == null) {
+            return 0;
+        }
+        World world = base.getWorld();
+        if (world == null) {
+            return 0;
+        }
+        int chunkX = base.getBlockX() >> 4;
+        int chunkZ = base.getBlockZ() >> 4;
+        if (!world.isChunkLoaded(chunkX, chunkZ)) {
+            return 0;
+        }
+        Chunk chunk = world.getChunkAt(chunkX, chunkZ);
+        int removed = 0;
+        for (Entity entity : chunk.getEntities()) {
+            if (!(entity instanceof TextDisplay) && !(entity instanceof ItemDisplay)) {
+                continue;
+            }
+            String owner = entity.getPersistentDataContainer().get(ownerKey, PersistentDataType.STRING);
+            if (ownerId.equals(owner)) {
+                entity.remove();
+                removed++;
+            }
+        }
+        return removed;
     }
 
     public void despawn() {
@@ -181,3 +239,4 @@ public final class Hologram {
         return new Transformation(new Vector3f(), new Quaternionf(), new Vector3f(scale, scale, scale), new Quaternionf());
     }
 }
+

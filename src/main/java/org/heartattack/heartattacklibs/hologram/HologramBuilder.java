@@ -2,6 +2,7 @@ package org.heartattack.heartattacklibs.hologram;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Display;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,6 +22,8 @@ public final class HologramBuilder {
     private ItemStack icon = null;
     private double iconOffsetY = 0.0;
     private double iconScale = 0.5;
+    private NamespacedKey ownerKey = null;
+    private String ownerId = null;
 
     private HologramBuilder(Location baseLocation) {
         this.baseLocation = baseLocation.clone();
@@ -89,8 +92,20 @@ public final class HologramBuilder {
         return this;
     }
 
+    /**
+     * Tags every spawned entity (text lines and icon) with {@code ownerKey == ownerId} in its
+     * persistent data. This lets the owning plugin locate and purge orphaned hologram entities
+     * via {@link Hologram#purgeOrphans(Location, NamespacedKey, String)}.
+     */
+    public HologramBuilder owner(NamespacedKey ownerKey, String ownerId) {
+        this.ownerKey = ownerKey;
+        this.ownerId = ownerId;
+        return this;
+    }
+
     public Hologram build() {
         return new Hologram(baseLocation, lines, lineSpacing, billboard, viewRange, seeThrough, shadowed,
-                backgroundColor, icon, iconOffsetY, iconScale);
+                backgroundColor, icon, iconOffsetY, iconScale, ownerKey, ownerId);
     }
 }
+
