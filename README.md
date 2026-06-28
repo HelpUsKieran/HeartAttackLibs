@@ -1,25 +1,38 @@
 # HeartAttackLibs
 
-HeartAttackLibs is a public-ready Paper library plugin. It keeps the reusable framework pieces from the original internal project: commands, config, database helpers, GUI menus, messages, modules, dependency providers, items, holograms, text formatting, and utilities.
+HeartAttackLibs is a public Paper library plugin for Minecraft servers. It provides reusable framework services for plugin authors who want shared helpers for commands, configuration, databases, GUI menus, messages, modules, dependencies, items, holograms, text formatting, and general utilities.
 
-## Build
+## Requirements
 
-```bash
-mvn clean package
-```
+- Java 21
+- Paper API 1.21 or compatible
+- Maven 3.9+
 
-The built plugin jar is created in `target/`.
+Optional runtime integrations:
+
+- PlaceholderAPI
+- Vault
+
+## Installation
+
+1. Download the latest jar from the GitHub Releases page.
+2. Place it in your server's `plugins/` folder.
+3. Restart the server.
+
+Other plugins can then access HeartAttackLibs through Bukkit services.
 
 ## Public API
 
-Other plugins can consume the Bukkit service:
-
 ```java
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.heartattack.heartattacklibs.api.HeartAttackLibsApi;
+
 RegisteredServiceProvider<HeartAttackLibsApi> provider = Bukkit.getServicesManager().getRegistration(HeartAttackLibsApi.class);
 HeartAttackLibsApi api = provider == null ? null : provider.getProvider();
 ```
 
-Main entry points include:
+Main entry points:
 
 - `api.command()` / `api.commands()`
 - `api.configFramework()` / `api.configs()`
@@ -32,6 +45,27 @@ Main entry points include:
 - `api.textFramework()`
 - `api.utilityFramework()`
 
-## Notes
+## Build From Source
 
-This copy intentionally excludes internal hub APIs, private plugin bridges, generated build output, IDE files, and bundled private jars so it can serve as a clean public-library starting point.
+```bash
+git clone https://github.com/HelpUsKieran/HeartAttackLibs.git
+cd HeartAttackLibs
+mvn clean package
+```
+
+The built jar is created in `target/`.
+
+## Releases
+
+Stable public releases are created from version tags:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The release workflow builds the jar with Java 21, creates a GitHub Release, and uploads the plugin jar automatically.
+
+## Development Notes
+
+Generated build output, IDE files, local server folders, private jars, logs, and environment files are ignored by `.gitignore`.
