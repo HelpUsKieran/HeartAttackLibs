@@ -104,7 +104,9 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-The release workflow builds the jar with Java 21, creates a GitHub Release, and uploads the plugin jar automatically.
+You can also run the **Stable Release** workflow manually from GitHub Actions and enter a release tag such as `v1.0.0`. Manual runs build from the selected branch, create the tag/release, and upload the plugin jar automatically.
+
+Release tags must use a semantic version style such as `v1.0.0` or `v1.0.0-beta.1`.
 
 ## Commands
 
@@ -903,4 +905,5 @@ The repository is configured for public use:
 - Private jar folders are ignored
 - CI builds run on pushes and pull requests
 - Stable releases are published from `v*` tags
+
 
