@@ -1,0 +1,10 @@
+name: HeartAttackLibs
+version: '1.0-SNAPSHOT'
+main: org.heartattack.heartattacklibs.HeartAttackLibs
+api-version: '1.21'
+softdepend:
+  - PlaceholderAPI
+  - Vault
+permissions:
+  heartattacklibs.reload:
+    default: op

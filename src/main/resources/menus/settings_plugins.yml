@@ -1,0 +1,44 @@
+menu:
+  id: settings_plugins
+  title: "<dark_gray>Player Settings"
+  size: 54
+  settings:
+    cancel-clicks: true
+    cancel-drag: true
+    allow-player-inventory-click: false
+  open-requirements:
+    - type: permission
+      permission: HeartAttackLibs.settings
+      deny-message: "<red>You do not have permission for /settings."
+  items:
+    filler:
+      slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 45, 46, 47, 48, 50, 51, 52]
+      material: BLACK_STAINED_GLASS_PANE
+      name: "<gray>"
+    global:
+      slot: 49
+      material: COMPARATOR
+      name: "<!i><gray>Global Settings"
+      lore:
+        - "<!i><dark_gray>Disable all messages, sounds,"
+        - "<!i><dark_gray>actionbars or titles at once."
+        - "<!i><yellow>Click to open"
+      click-actions:
+        - "[open_menu] settings_main"
+    close:
+      slot: 53
+      material: BARRIER
+      name: "<!i><red>Close"
+      click-actions:
+        - "[close]"
+  dynamic:
+    plugins:
+      renderer-id: settings_plugins
+      slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      pagination:
+        enabled: true
+        page-size: 21
+        previous-slot: 46
+        next-slot: 52
+      click-actions:
+        - "[settings_open_plugin]"

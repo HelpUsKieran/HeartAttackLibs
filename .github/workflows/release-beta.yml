@@ -1,0 +1,49 @@
+name: Beta Release
+
+# Rolling beta: builds the plugin jar and (re)publishes it as the single "beta"
+# pre-release, overwriting the previous beta build each time.
+#   git tag -f beta && git push -f origin beta   (or run manually from Actions tab)
+
+on:
+  push:
+    tags:
+      - 'beta'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build
+        run: mvn -B -ntp -DskipTests package
+      - name: Select plugin jar
+        id: jar
+        run: |
+          file=$(ls -S target/*.jar 2>/dev/null | grep -vE 'original-|-sources\.jar|-javadoc\.jar' | head -n1)
+          if [ -z "$file" ]; then echo "No jar produced in target/" >&2; exit 1; fi
+          echo "Selected: $file"
+          echo "path=$file" >> "$GITHUB_OUTPUT"
+      - name: Publish rolling beta release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: beta
+          name: Beta Build
+          prerelease: true
+          make_latest: false
+          body: |
+            Rolling beta build.
+            Automatically built from `${{ github.sha }}`.
+            **Not for production** — may be unstable.
+          files: ${{ steps.jar.outputs.path }}
+          fail_on_unmatched_files: true

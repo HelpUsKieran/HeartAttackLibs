@@ -1,0 +1,74 @@
+menu:
+  id: settings_main
+  title: "<dark_gray>Global Settings"
+  size: 36
+  settings:
+    cancel-clicks: true
+    cancel-drag: true
+    allow-player-inventory-click: false
+  open-requirements:
+    - type: permission
+      permission: HeartAttackLibs.settings
+      deny-message: "<red>You do not have permission for /settings."
+  items:
+    filler:
+      slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 28, 29, 30, 31, 32, 33, 34]
+      material: GRAY_STAINED_GLASS_PANE
+      name: "<gray>"
+    messages:
+      slot: 10
+      material: PAPER
+      name: "<!i><gold>Messages"
+      lore:
+        - "<!i><gray>Status: <settings_messages_state>"
+        - "<!i><yellow>Click to toggle"
+      click-actions:
+        - "[settings_toggle_global] messages"
+    actionbars:
+      slot: 12
+      material: OAK_SIGN
+      name: "<!i><gold>Actionbars"
+      lore:
+        - "<!i><gray>Status: <settings_actionbars_state>"
+        - "<!i><yellow>Click to toggle"
+      click-actions:
+        - "[settings_toggle_global] actionbars"
+    titles:
+      slot: 14
+      material: NAME_TAG
+      name: "<!i><gold>Titles"
+      lore:
+        - "<!i><gray>Status: <settings_titles_state>"
+        - "<!i><yellow>Click to toggle"
+      click-actions:
+        - "[settings_toggle_global] titles"
+    sounds:
+      slot: 16
+      material: NOTE_BLOCK
+      name: "<!i><gold>Sounds"
+      lore:
+        - "<!i><gray>Status: <settings_sounds_state>"
+        - "<!i><yellow>Click to toggle"
+      click-actions:
+        - "[settings_toggle_global] sounds"
+    particles:
+      slot: 22
+      material: BLAZE_POWDER
+      name: "<!i><gold>Particles"
+      lore:
+        - "<!i><gray>Status: <settings_particles_state>"
+        - "<!i><yellow>Click to toggle"
+      click-actions:
+        - "[settings_toggle_global] particles"
+    back:
+      slot: 27
+      material: ARROW
+      name: "<!i><yellow>Back"
+      click-actions:
+        - "[open_menu] settings_plugins"
+    close:
+      slot: 35
+      material: BARRIER
+      name: "<!i><red>Close"
+      click-actions:
+        - "[close]"

@@ -1,0 +1,17 @@
+runtime-libraries:
+  enabled: false
+  libraries:
+    # example-lib:
+    #   group: "com.example"
+    #   artifact: "example-artifact"
+    #   version: "1.0.0"
+    #   repository: "https://repo1.maven.org/maven2"
+    #   required: false
+    #   relocations:
+    #     "com.example": "org.heartattack.heartattacklibs.libs.example"
+
+providers:
+  placeholderapi:
+    enabled: true
+  vault:
+    enabled: true

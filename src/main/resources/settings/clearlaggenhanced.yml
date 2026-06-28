@@ -1,0 +1,41 @@
+# ClearLaggEnhanced — external plugin filter configuration
+# HeartAttackLibs intercepts outbound messages/actionbars that match any filter rule below
+# and suppresses them for players who disabled that toggle in /settings.
+#
+# filter types: contains | startsWith | endsWith | exact | regex
+# toggleable: false → always sends and is hidden from the /settings GUI.
+
+messages:
+  clear_complete:
+    display: "Entity Clear Broadcast"
+    toggleable: true
+    material: HOPPER
+    lore:
+      - "The message broadcast when entities"
+      - "are cleared from the world."
+    filter:
+      - type: contains
+        value: "ᴄʟᴇᴀʀᴇᴅ"
+
+  clear_warning:
+    display: "Pre-Clear Warning"
+    toggleable: true
+    material: ORANGE_DYE
+    lore:
+      - "The countdown warning sent to all"
+      - "players before entities are cleared."
+    filter:
+      - type: contains
+        value: "ᴡɪʟʟ ʙᴇ ᴄʟᴇᴀʀᴇᴅ ɪɴ"
+
+actionbars:
+  next_clear:
+    display: "Next Clear Timer"
+    toggleable: true
+    material: CLOCK
+    lore:
+      - "The periodic action-bar showing when"
+      - "the next entity clear will happen."
+    filter:
+      - type: contains
+        value: "Next automatic clear in"

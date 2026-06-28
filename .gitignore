@@ -1,0 +1,64 @@
+# Maven / build output
+target/
+dependency-reduced-pom.xml
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+
+# IDE / editor files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs / runtime files
+logs/
+*.log
+hs_err_pid*
+replay_pid*
+
+# Local temp / generated checks
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Local/private dependency jars
+required/
+libs/
+lib/
+
+# Environment / local config
+.env
+.env.*
+!.env.example
+
+# Minecraft server/runtime folders if testing locally
+plugins/
+world/
+world_nether/
+world_the_end/
+server.properties
+bukkit.yml
+spigot.yml
+paper.yml
+eula.txt
+ops.json
+whitelist.json
+banned-players.json
+banned-ips.json
+usercache.json

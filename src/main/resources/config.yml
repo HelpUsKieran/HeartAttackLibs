@@ -1,0 +1,48 @@
+messages:
+  prefix: "<gray>[<gold>HeartAttackLibs</gold>] </gray>"
+
+general:
+  no-permission: "<dark_gray>[<dark_red><bold>x</bold><dark_gray>] <red>Oops, you don't have access to this command!"
+
+text:
+  small-caps:
+    enabled: true
+    allowed-plugins:
+      - "*"
+
+settings:
+  enabled: true
+  defaults:
+    messages: true
+    actionbars: true
+    titles: true
+    particles: true
+    sounds: true
+  plugin-overrides: []
+  display:
+    enabled:
+      symbol: "+"
+      color: "green"
+      label: "Enabled"
+      material: LIME_DYE
+    disabled:
+      symbol: "-"
+      color: "red"
+      label: "Disabled"
+      material: GRAY_DYE
+  gui:
+    title: "<dark_gray>Player Settings"
+    size: 27
+    toggles:
+      messages-slot: 11
+      particles-slot: 13
+      sounds-slot: 15
+    overrides:
+      button-slot: 22
+      enabled-material: "BOOK"
+      disabled-material: "BARRIER"
+
+debug:
+  enabled: false
+  categories:
+    - "*"

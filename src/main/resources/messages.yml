@@ -1,0 +1,13 @@
+messages:
+  not-player:
+    line: "<red>Only players can do that."
+  framework-reloaded:
+    line: "<green>HeartAttackLibs framework reloaded."
+    sound:
+      name: "ENTITY_EXPERIENCE_ORB_PICKUP"
+      volume: 1.0
+      pitch: 1.2
+  debug-enabled:
+    line: "<green>Debug mode enabled."
+  debug-disabled:
+    line: "<yellow>Debug mode disabled."

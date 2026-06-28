@@ -1,0 +1,40 @@
+menu:
+  id: settings_locations
+  title: "<dark_gray><settings_selected_plugin> <settings_selected_category>"
+  size: 54
+  settings:
+    cancel-clicks: true
+    cancel-drag: true
+    allow-player-inventory-click: false
+  open-requirements:
+    - type: permission
+      permission: HeartAttackLibs.settings
+      deny-message: "<red>You do not have permission for /settings."
+  items:
+    filler:
+      slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+      material: BLACK_STAINED_GLASS_PANE
+      name: "<gray>"
+    back:
+      slot: 45
+      material: ARROW
+      name: "<!i><yellow>Back"
+      click-actions:
+        - "[open_menu] settings_plugin_categories"
+    close:
+      slot: 53
+      material: BARRIER
+      name: "<!i><red>Close"
+      click-actions:
+        - "[close]"
+  dynamic:
+    locations:
+      renderer-id: settings_locations
+      slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+      pagination:
+        enabled: true
+        page-size: 21
+        previous-slot: 46
+        next-slot: 52
+      click-actions:
+        - "[settings_toggle_location]"
